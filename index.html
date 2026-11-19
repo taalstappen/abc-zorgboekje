@@ -67,6 +67,9 @@ let localPending=localStorage.getItem(LOCAL_PENDING_KEY)==='yes';
 const DIRTY_KEY='abc-zorgboekje-niet-gesynchroniseerd-v6';
 dirtyIds=new Set();
 try{const saved=JSON.parse(localStorage.getItem(DIRTY_KEY)||'null');if(Array.isArray(saved))dirtyIds=new Set(saved);else if(localPending)dirtyIds=new Set(data.map(x=>x.id));}catch{if(localPending)dirtyIds=new Set(data.map(x=>x.id))}
+// Oude versies kenden alleen een status voor het hele boekje. Vergelijk per ziektebeeld zodra Drive verbonden is.
+function entryMatches(a,b){return a&&b&&a.id===b.id&&a.name===b.name&&a.features===b.features&&a.tips===b.tips}
+function reconcileWithDrive(remote){const byId=new Map(remote.map(x=>[x.id,x]));dirtyIds=new Set(data.filter(x=>!entryMatches(x,byId.get(x.id))).map(x=>x.id));saveDirtyIds();if(dirtyIds.size||remote.some(x=>!data.some(y=>y.id===x.id)))markLocalPending();else clearLocalPending()}
 function saveDirtyIds(){try{localStorage.setItem(DIRTY_KEY,JSON.stringify([...dirtyIds]))}catch{}render()}
 
 function markLocalPending(){localPending=true;try{localStorage.setItem(LOCAL_PENDING_KEY,'yes')}catch{}cloudControls()}
@@ -115,15 +118,19 @@ async function initializeCloud(){
  if(googleBusy)return;googleBusy=true;cloudControls();cloudStatus('Google Drive controleren…');
  try{
   let file=await findCloudFile();cloudFileId=file?.id||null;
-  if(file&&!localPending){
-   let remote=await readCloud(file);
-   if(JSON.stringify(remote)!==JSON.stringify(data)){
-    let useCloud=confirm('In Google Drive staan '+remote.length+' ziektebeelden, op dit apparaat '+data.length+'.\n\nOK = notities UIT Google Drive gebruiken.\nAnnuleren = nu NIET synchroniseren (je gegevens blijven ongewijzigd).\n\nZo voorkomen we dat notities ongemerkt worden overschreven.');
-    if(!useCloud){cloudReady=false;cloudStatus('Verbonden, maar automatisch opslaan staat UIT. Kies eerst welke versie je wilt bewaren. Je notities zijn niet gewijzigd.');return}
-    replaceLocal(remote);
+     if(file){
+    let remote=await readCloud(file);
+    if(localPending||dirtyIds.size){
+     // Behoud alle lokale notities; herstel de sterretjes door per ziektebeeld te vergelijken.
+     reconcileWithDrive(remote);
+     if(remote.some(x=>!data.some(y=>y.id===x.id))){cloudReady=false;cloudStatus('Google Drive bevat ook ziektebeelden die hier ontbreken. Download eerst een back-up en vergelijk de versies; uploaden is uitgeschakeld om gegevensverlies te voorkomen.');return}
+    }else if(JSON.stringify(remote)!==JSON.stringify(data)){
+     let useCloud=confirm('In Google Drive staan '+remote.length+' ziektebeelden, op dit apparaat '+data.length+'.\n\nOK = notities UIT Google Drive gebruiken.\nAnnuleren = nu NIET synchroniseren (je gegevens blijven ongewijzigd).\n\nZo voorkomen we dat notities ongemerkt worden overschreven.');
+     if(!useCloud){cloudReady=false;cloudStatus('Verbonden, maar automatisch opslaan staat UIT. Kies eerst welke versie je wilt bewaren. Je notities zijn niet gewijzigd.');return}
+     replaceLocal(remote);
+    }
    }
-  }
-  cloudReady=true;cloudStatus(localPending?'Verbonden. Er staan wijzigingen alleen lokaal. Kies Later synchroniseren als je het hele boekje naar Google Drive wilt sturen.':'✓ Google Drive verbonden. Kies bij Opslaan waar je wilt bewaren.');
+   cloudReady=true;cloudStatus(localPending?'Verbonden. Er staan wijzigingen alleen lokaal. Kies Later synchroniseren als je het hele boekje naar Google Drive wilt sturen.':'✓ Google Drive verbonden. Kies bij Opslaan waar je wilt bewaren.');
   if(!file&&data.length){markLocalPending();cloudStatus('Verbonden. De notities op dit apparaat staan nog niet in Google Drive. Kies Later synchroniseren.');}
  }catch(e){cloudReady=false;cloudStatus('Nog niet klaar voor automatisch opslaan: '+e.message)}
  finally{googleBusy=false;cloudControls()}
