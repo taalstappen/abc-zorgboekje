@@ -13,7 +13,7 @@ function render(){
  $('sectionTitle').textContent=selected?'Letter '+selected:'Alle notities';
  let q=$('search').value.toLocaleLowerCase('nl'),f=$('filterType').value;
  let items=data.filter(x=>(!selected||x.name.toLocaleUpperCase('nl').startsWith(selected))&&x.name.toLocaleLowerCase('nl').includes(q)&&(f==='all'||entryType(x)===f)).sort((a,b)=>a.name.localeCompare(b.name,'nl'));
- $('entries').innerHTML=items.length?items.map(x=>`<div class="entry"><button data-id="${safe(x.id)}"><span class="entry-type">${entryType(x)==='term'?'Woord':'Ziektebeeld'}</span>${safe(x.name)}${dirtyIds.has(x.id)?' <span class="sync-star" title="Nog niet in Google Drive">★</span>':''}</button><span class="pill">Bekijk / bewerk</span></div>`).join(''):'<p class="hint">Geen notities gevonden. Tik op + Nieuw om te beginnen.</p>';
+ $('entries').innerHTML=items.length?items.map(x=>`<div class="entry"><button data-id="${safe(x.id)}">${safe(x.name)}${dirtyIds.has(x.id)?' <span class="sync-star" title="Nog niet in Google Drive">★</span>':''}</button><span class="pill">Bekijk / bewerk</span></div>`).join(''):'<p class="hint">Geen notities gevonden. Tik op + Nieuw om te beginnen.</p>';
  $('unsyncedLegend').hidden=dirtyIds.size===0;
 }
 function showTermPreview(id){const x=data.find(y=>y.id===id&&entryType(y)==='term');if(!x)return; $('termPreviewTitle').textContent=x.name;$('termPreviewMeaning').textContent=x.features||'Nog geen uitleg toegevoegd.';$('termPreviewExtra').textContent=x.tips||'';$('termPreviewExtraTitle').hidden=!x.tips;$('termPreviewExtra').hidden=!x.tips;$('termPreview').hidden=false;$('termPreview').scrollIntoView({behavior:'smooth',block:'nearest'})}
