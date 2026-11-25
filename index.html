@@ -11,7 +11,7 @@
 #startGuide .guide-option{border:2px solid #176e82;border-radius:12px;padding:14px;font-weight:700;margin:12px 0}
 #startGuide .guide-disabled{border:1px solid #d4e3e5;border-radius:12px;padding:14px;color:#60777b}
 #startGuide .guide-back{background:transparent!important;color:var(--ink,#19383e)!important;border:1px solid #b9d2d6!important}
-</style></head><body><header><div class="inner"><div><h1>ABC Zorgboekje</h1><p>Mijn persoonlijke zorgkennis</p></div><button class="headbtn" id="settingsBtn" aria-label="Instellingen">⚙ Instellingen</button></div></header><main><section class="panel" id="settings" hidden><div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px"><h2 style="margin:0">Instellingen</h2><button type="button" class="btn secondary" id="homeBtn" style="flex:0 0 auto">⌂ Terug naar Home</button></div><div class="settings-grid"><div><label for="theme">Weergave</label><select id="theme"><option value="light">Lichte modus</option><option value="dark">Donkere modus</option></select></div><div><label for="font">Lettertype</label><select id="font"><option value="system">Standaard</option><option value="arial">Arial</option><option value="georgia">Georgia</option></select></div><div><label for="size">Tekstgrootte</label><select id="size"><option value="16">Normaal</option><option value="18">Groot</option><option value="20">Extra groot</option></select></div></div><div id="bookTools" style="margin-top:22px;border-top:1px solid var(--line);padding-top:18px"><h2>Opslag, back-up en printen</h2><div id="toolsContent" style="margin-top:16px"><h2>Google Drive</h2><p class="hint">Log in bij Google om je zorgboekje daar te bewaren.</p><button type="button" class="btn secondary" id="guideOpenSettings" style="margin-bottom:12px">Google Drive instellen</button><div class="row"><button class="btn" id="googleConnect">Inloggen bij Google</button><button class="btn secondary" id="googleDisconnect" disabled>Verbinding verbreken</button></div><p class="status" id="googleStatus" role="status">Nog niet verbonden. Alleen beschikbaar op de online GitHub-website.</p><div style="margin-top:14px;padding:13px;border:1px solid var(--line);border-radius:12px"><h2>📁 Mijn map in Google Drive</h2><p>Je zorgboekje komt in jouw cloudopslag van Google Drive.</p><p>De map heet: <strong>0-ABC Zorgboekje</strong>.</p><p><strong>Let op!</strong> Verwijder deze map niet. Je zorgboekje heeft deze map nodig om je notities te bewaren.</p><div id="photoTip" hidden style="margin:12px 0;padding:12px 14px;border-radius:12px;background:#e7f3ff;color:#174c83;border-left:4px solid #3283c7"><strong>💡 Tip – Eigen foto's bewaren</strong><p style="margin:6px 0 0">Je kunt foto's bewaren in Google Drive.</p><p style="margin:6px 0 0">Maak daarvoor zelf een map <strong>Foto's</strong> binnen <strong>0-ABC Zorgboekje</strong>.</p></div><button type="button" class="btn secondary" id="setupVisibleDrive" disabled>✓ Ik geef toestemming</button><p class="status" id="visibleDriveStatus" role="status">Log eerst in bij Google.</p></div><div class="row" id="cloudPendingRow" style="margin-top:12px" hidden><button class="btn secondary" id="googleUpload" disabled>↑ Bewaar in Google Drive</button></div><div class="row" style="margin-top:12px"><button class="btn secondary" id="googleDownload" disabled>↓ Haal mijn zorgboekje op</button></div><p class="hint">Heb je een nieuwe computer? Met deze knop haal je jouw notities op uit Google Drive. Je krijgt eerst een waarschuwing.</p><p class="hint">De knop om te bewaren verschijnt als je nieuwe notities hebt. Maak ook regelmatig een back-up.</p><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><h2>Back-up</h2><p class="hint">Download een reservekopie van je notities of zet een eerdere back-up terug. Je kunt de kopie zelf bewaren in iCloud Drive of OneDrive.</p><div class="row"><button class="btn" id="exportBtn">↓ Back-up opslaan</button><button class="btn secondary" id="importBtn">↑ Back-up openen</button><input class="hidden" id="fileInput" type="file" accept="application/json,.json"></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><h2>Printen</h2><p class="hint">Print alleen ingevulde notities. Kies A4 liggend, dubbelzijdig en omslaan over de korte zijde.</p><button class="btn" id="printBtn" style="width:100%">▤ Print als A5-boekje</button><button class="btn secondary" id="downloadPrintBtn" style="width:100%;margin-top:10px">↓ Download printversie (HTML)</button><p class="hint">Werkt de printknop niet in de voorbeeldweergave? Download de printversie en open deze in Chrome, Safari of Edge.</p><p class="status">Op de buitenste achterzijde staat de Taalstappen-afbeelding klein rechtsonder. Bij het afdrukken van één vel staat die op de linkerhelft van de eerste afdrukzijde (de buitenkant van het gevouwen boekje).</p></div></div></section><section class="panel"><h2>Zoek op beginletter</h2><p class="hint">Tik op een letter om jouw ziektebeelden en woorden te bekijken.</p><div class="alphabet" id="alphabet"></div></section><section class="panel"><div class="row"><h2 id="sectionTitle" style="margin:0">Alle notities</h2><button class="btn" id="newBtn" style="flex:0 0 auto">+ Nieuw</button></div><label for="search">Zoek een ziektebeeld of woord</label><input id="search" type="search" placeholder="Bijv. dementie of oedeem"><div class="row" style="margin-top:12px"><label for="filterType" style="margin:0;flex:0 0 auto">Toon</label><select id="filterType"><option value="all">Alles</option><option value="disease">Ziektebeelden</option><option value="term">Medische woorden</option></select></div><div id="entries"></div><div id="unsyncedLegend" class="row" style="margin-top:12px;align-items:center;gap:10px;flex-wrap:wrap" hidden><span class="hint"><span class="sync-star">★</span> Nog niet opgeslagen in Google Drive</span><button type="button" class="btn secondary" id="syncNowBtn" style="width:auto;flex:0 0 auto;padding:9px 14px">↑ Nu naar Drive</button></div></section><section class="panel hidden" id="editor"><div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px"><h2 id="editTitle" style="margin:0">Nieuwe notitie</h2><button type="button" class="btn secondary" id="editorHomeBtn" style="flex:0 0 auto">⌂ Terug naar Home</button></div><label for="entryType">Wat wil je toevoegen?</label><select id="entryType"><option value="disease">Ziektebeeld</option><option value="term">Medisch woord</option></select><label for="disease" id="nameLabel">Naam ziektebeeld (Nederlands)</label><input id="disease" maxlength="70" placeholder="Bijv. dementie"><label for="features" id="featuresLabel">Kenmerken / mijn uitleg</label><textarea id="features" maxlength="420" rows="5" placeholder="Welke symptomen en signalen herken je?"></textarea><p class="counter" id="featuresCount">0 / 420 tekens</p><label for="tips" id="tipsLabel">Tips en adviezen</label><textarea id="tips" maxlength="420" rows="5" placeholder="Wat helpt bij de zorg en begeleiding?"></textarea><p class="counter" id="tipsCount">0 / 420 tekens</p><div id="termLinks" hidden><label for="termDiseaseLinks">Koppel dit woord aan ziektebeelden (optioneel)</label><div id="termDiseaseLinks" class="link-options"></div><p class="hint">Eén woord kan bij meerdere ziektebeelden horen. Je hoeft de uitleg maar één keer te schrijven.</p></div><div id="diseaseLinks" hidden><label for="relatedDiseases">Gekoppelde ziektebeelden</label><div id="relatedDiseases" class="link-options"></div><p class="hint">Kies ziektebeelden die bij elkaar horen. De koppeling is bij beide zichtbaar.</p><label>Gekoppelde medische woorden</label><div id="diseaseTermLinks" class="link-options"></div><p class="hint">Klik op ‘Bekijk uitleg’ naast een gekoppeld woord.</p><div id="termPreview" class="term-preview" hidden><h3 id="termPreviewTitle"></h3><p id="termPreviewMeaning" style="white-space:pre-wrap;overflow-wrap:anywhere"></p><h4 id="termPreviewExtraTitle" hidden>Praktijkvoorbeeld / extra uitleg</h4><p id="termPreviewExtra" style="white-space:pre-wrap;overflow-wrap:anywhere"></p><button type="button" class="btn secondary" id="backToDisease">← Terug naar ziektebeeld</button></div></div><p class="hint">De naam is Nederlands. De uitleg mag in het Nederlands, je thuistaal of beide. Geen spellingcontrole. Per notitie past maximaal één A5-pagina in het geprinte boekje.</p><div class="row" style="margin-top:14px"><button class="btn secondary" id="saveLocalBtn">Lokaal opslaan</button><button class="btn" id="saveDriveBtn">Opslaan in Google Drive</button><button class="btn secondary" id="cancelBtn">Annuleren</button><button class="btn secondary danger" id="deleteBtn">Verwijderen</button></div><p class="status" id="saveStatus" role="status"></p><p class="hint" style="margin-top:8px"><span class="sync-star">★</span> = nog niet opgeslagen in Google Drive. Ook zonder internet kun je lokaal opslaan.</p></section><div class="footer">Voor persoonlijke studieaantekeningen • Controleer medische informatie altijd bij betrouwbare bronnen en lokale protocollen.</div></main><div id="printArea"></div><div id="startGuide" hidden role="dialog" aria-modal="true" aria-labelledby="guideTitle"><div class="guide-card">
+</style></head><body><header><div class="inner"><div><h1>ABC Zorgboekje</h1><p>Mijn persoonlijke zorgkennis</p></div><button class="headbtn" id="settingsBtn" aria-label="Instellingen">⚙ Instellingen</button></div></header><main><section class="panel" id="settings" hidden><div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px"><h2 style="margin:0">Instellingen</h2><button type="button" class="btn secondary" id="homeBtn" style="flex:0 0 auto">⌂ Terug naar Home</button></div><div class="settings-grid"><div><label for="theme">Weergave</label><select id="theme"><option value="light">Lichte modus</option><option value="dark">Donkere modus</option></select></div><div><label for="font">Lettertype</label><select id="font"><option value="system">Standaard</option><option value="arial">Arial</option><option value="georgia">Georgia</option></select></div><div><label for="size">Tekstgrootte</label><select id="size"><option value="16">Normaal</option><option value="18">Groot</option><option value="20">Extra groot</option></select></div></div><div id="bookTools" style="margin-top:22px;border-top:1px solid var(--line);padding-top:18px"><h2>Opslag, back-up en printen</h2><div id="toolsContent" style="margin-top:16px"><h2>Google Drive</h2><p class="hint">Log in bij Google om je zorgboekje daar te bewaren.</p><button type="button" class="btn secondary" id="guideOpenSettings" style="margin-bottom:12px">Google Drive instellen</button><div class="row"><button class="btn" id="googleConnect">Inloggen bij Google</button><button class="btn secondary" id="googleDisconnect" disabled>Verbinding verbreken</button></div><p class="status" id="googleStatus" role="status">Nog niet verbonden. Alleen beschikbaar op de online GitHub-website.</p><div style="margin-top:14px;padding:13px;border:1px solid var(--line);border-radius:12px"><h2>📁 Mijn map in Google Drive</h2><p>Je zorgboekje komt in jouw cloudopslag van Google Drive.</p><p>De map heet: <strong>0-ABC Zorgboekje</strong>.</p><p><strong>Let op!</strong> Verwijder deze map niet. Je zorgboekje heeft deze map nodig om je notities te bewaren.</p><div id="photoTip" hidden style="margin:12px 0;padding:12px 14px;border-radius:12px;background:#e7f3ff;color:#174c83;border-left:4px solid #3283c7"><strong>💡 Tip – Eigen foto's bewaren</strong><p style="margin:6px 0 0">Je kunt foto's bewaren in Google Drive.</p><p style="margin:6px 0 0">Maak daarvoor zelf een map <strong>Foto's</strong> binnen <strong>0-ABC Zorgboekje</strong>.</p></div><button type="button" class="btn secondary" id="setupVisibleDrive" disabled>✓ Ik geef toestemming</button><p class="status" id="visibleDriveStatus" role="status">Log eerst in bij Google.</p></div><div class="row" id="cloudPendingRow" style="margin-top:12px" hidden><button class="btn secondary" id="googleUpload" disabled>↑ Bewaar in Google Drive</button></div><div class="row" style="margin-top:12px"><button class="btn secondary" id="googleDownload" disabled>↓ Haal mijn zorgboekje op</button></div><p class="hint">Heb je een nieuwe computer? Met deze knop haal je jouw notities op uit Google Drive. Je krijgt eerst een waarschuwing.</p><p class="hint">De knop om te bewaren verschijnt als je nieuwe notities hebt. Maak ook regelmatig een back-up.</p><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><h2>Back-up</h2><p class="hint">Download een reservekopie van je notities of zet een eerdere back-up terug. Je kunt de kopie zelf bewaren in iCloud Drive of OneDrive.</p><div class="row"><button class="btn" id="exportBtn">↓ Back-up opslaan</button><button class="btn secondary" id="importBtn">↑ Back-up openen</button><input class="hidden" id="fileInput" type="file" accept="application/json,.json"></div><hr style="border:0;border-top:1px solid var(--line);margin:20px 0"><h2>Printen</h2><p class="hint">Print alleen ingevulde notities. Kies A4 liggend, dubbelzijdig en omslaan over de korte zijde.</p><button class="btn" id="printBtn" style="width:100%">▤ Print als A5-boekje</button><button class="btn secondary" id="downloadPrintBtn" style="width:100%;margin-top:10px">↓ Download printversie (HTML)</button><p class="hint">Werkt de printknop niet in de voorbeeldweergave? Download de printversie en open deze in Chrome, Safari of Edge.</p><p class="status">Op de buitenste achterzijde staat de Taalstappen-afbeelding klein rechtsonder. Bij het afdrukken van één vel staat die op de linkerhelft van de eerste afdrukzijde (de buitenkant van het gevouwen boekje).</p></div></div></section><section class="panel"><h2>Zoek op beginletter</h2><p class="hint">Tik op een letter om jouw ziektebeelden en woorden te bekijken.</p><div class="alphabet" id="alphabet"></div></section><section class="panel"><div class="row"><h2 id="sectionTitle" style="margin:0">Alle notities</h2><button class="btn" id="newBtn" style="flex:0 0 auto">+ Nieuw</button></div><label for="search">Zoek een ziektebeeld of woord</label><input id="search" type="search" placeholder="Bijv. dementie of oedeem"><div class="row" style="margin-top:12px"><label for="filterType" style="margin:0;flex:0 0 auto">Toon</label><select id="filterType"><option value="all">Alles</option><option value="disease">Ziektebeelden</option><option value="term">Medische woorden</option></select></div><div id="entries"></div><div id="unsyncedLegend" class="row" style="margin-top:12px;align-items:center;gap:10px;flex-wrap:wrap" hidden><span class="hint"><span class="sync-star">★</span> Nog niet opgeslagen in Google Drive</span><button type="button" class="btn secondary" id="syncNowBtn" style="width:auto;flex:0 0 auto;padding:9px 14px">↑ Nu naar Drive</button></div></section><section class="panel hidden" id="editor"><div class="row" style="justify-content:space-between;align-items:center;margin-bottom:12px"><h2 id="editTitle" style="margin:0">Nieuwe notitie</h2><button type="button" class="btn secondary" id="editorHomeBtn" style="flex:0 0 auto">⌂ Terug naar Home</button></div><label for="entryType">Wat wil je toevoegen?</label><select id="entryType"><option value="disease">Ziektebeeld</option><option value="term">Medisch woord</option></select><label for="disease" id="nameLabel">Naam ziektebeeld (Nederlands)</label><input id="disease" maxlength="70" placeholder="Bijv. dementie"><label for="features" id="featuresLabel">Kenmerken / mijn uitleg</label><textarea id="features" maxlength="420" rows="5" placeholder="Welke symptomen en signalen herken je?"></textarea><p class="counter" id="featuresCount">0 / 420 tekens</p><label for="tips" id="tipsLabel">Tips en adviezen</label><textarea id="tips" maxlength="420" rows="5" placeholder="Wat helpt bij de zorg en begeleiding?"></textarea><p class="counter" id="tipsCount">0 / 420 tekens</p><div id="termLinks" hidden><label for="termDiseaseLinks">Koppel dit woord aan ziektebeelden (optioneel)</label><div id="termDiseaseLinks" class="link-options"></div><p class="hint">Eén woord kan bij meerdere ziektebeelden horen. Je hoeft de uitleg maar één keer te schrijven.</p></div><div id="diseaseLinks" hidden><label for="relatedDiseases">Gekoppelde ziektebeelden</label><div id="relatedDiseases" class="link-options"></div><p class="hint">Kies ziektebeelden die bij elkaar horen. De koppeling is bij beide zichtbaar.</p><label>Gekoppelde medische woorden</label><div id="diseaseTermLinks" class="link-options"></div><p class="hint">Klik op ‘Bekijk uitleg’ naast een gekoppeld woord.</p><div id="termPreview" class="term-preview" hidden><h3 id="termPreviewTitle"></h3><p id="termPreviewMeaning" style="white-space:pre-wrap;overflow-wrap:anywhere"></p><h4 id="termPreviewExtraTitle" hidden>Praktijkvoorbeeld / extra uitleg</h4><p id="termPreviewExtra" style="white-space:pre-wrap;overflow-wrap:anywhere"></p><button type="button" class="btn secondary" id="backToDisease">← Terug naar ziektebeeld</button></div></div><p class="hint">De naam is Nederlands. De uitleg mag in het Nederlands, je thuistaal of beide. Geen spellingcontrole. Per notitie past maximaal één A5-pagina in het geprinte boekje.</p><div class="row" style="margin-top:14px"><button class="btn secondary" id="saveLocalBtn">Lokaal opslaan</button><button class="btn" id="saveDriveBtn">Opslaan in Google Drive</button><button class="btn secondary" id="cancelBtn">Annuleren</button><button class="btn secondary danger" id="deleteBtn">Verwijderen</button></div><p class="status" id="saveStatus" role="status"></p><p class="hint" style="margin-top:8px"><span class="sync-star">★</span> = nog niet opgeslagen in Google Drive. Ook zonder internet kun je lokaal opslaan.</p></section><div class="footer">Voor persoonlijke studieaantekeningen • Controleer medische informatie altijd bij betrouwbare bronnen en lokale protocollen. <a href="privacy.html" style="color:inherit">Privacybeleid</a></div></main><div id="printArea"></div><div id="startGuide" hidden role="dialog" aria-modal="true" aria-labelledby="guideTitle"><div class="guide-card">
 <div class="guide-step" id="guideStepText">Stap 1 van 3</div><h2 id="guideTitle">Waar bewaar je jouw zorgboekje?</h2>
 <div id="guideOne"><div class="guide-option">✓ Google Drive<br><small>Bewaar je zorgboekje in Google Drive.</small></div><div class="guide-disabled">Microsoft OneDrive — komt later</div><button type="button" class="btn" id="guideNext">Verder met Google Drive</button></div>
 <div id="guideTwo" hidden><p>Mag het zorgboekje een map maken in jouw Google Drive?</p><p>De map heet <strong>0-ABC Zorgboekje</strong>.</p><p><strong>Let op!</strong> Verwijder deze map niet.</p><button type="button" class="btn" id="guideConsent">✓ Ik geef toestemming</button><button type="button" class="btn guide-back" id="guideBackTwo">Terug</button></div>
@@ -72,7 +72,7 @@ function saveEntry(toDrive){const obj=validateEntry();if(!obj)return;
 $('saveLocalBtn').onclick=()=>saveEntry(false);$('saveDriveBtn').onclick=()=>saveEntry(true);
 $('deleteBtn').onclick=()=>{if(!editing||!confirm('Deze notitie lokaal verwijderen? Google Drive wordt niet automatisch bijgewerkt.'))return;let old=data;data=data.filter(x=>x.id!==editing).map(x=>{let updated={...x};if(x.type==='term'&&x.relatedIds?.includes(editing))updated.relatedIds=x.relatedIds.filter(id=>id!==editing);if(x.type==='disease'&&x.diseaseIds?.includes(editing))updated.diseaseIds=x.diseaseIds.filter(id=>id!==editing);return updated});if(!persist()){data=old;return}data.filter(x=>old.find(y=>y.id===x.id)?.relatedIds?.includes(editing)||old.find(y=>y.id===x.id)?.diseaseIds?.includes(editing)).forEach(x=>dirtyIds.add(x.id));dirtyIds.delete(editing);saveDirtyIds();markLocalPending();render();closeEdit();cloudStatus('Lokaal verwijderd. Google Drive is niet bijgewerkt.')};
 $('settingsBtn').onclick=()=>{$('settings').hidden=!$('settings').hidden;if(!$('settings').hidden)$('settings').scrollIntoView({behavior:'smooth',block:'start'})};$('homeBtn').onclick=()=>{$('settings').hidden=true;window.scrollTo({top:0,behavior:'smooth'})};['theme','font','size'].forEach(id=>$(id).addEventListener('change',setOptions));
-$('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify({app:'ABC Zorgboekje',version:11,entries:data},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mijn-abc-zorgboekje.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
+$('exportBtn').onclick=()=>{let blob=new Blob([JSON.stringify({app:'ABC Zorgboekje',version:21,entries:data},null,2)],{type:'application/json'});let a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='mijn-abc-zorgboekje.json';a.click();setTimeout(()=>URL.revokeObjectURL(a.href),2000)};
 $('importBtn').onclick=()=>$('fileInput').click();$('fileInput').onchange=async e=>{let f=e.target.files[0];if(!f)return;try{let obj=JSON.parse(await f.text());if(!Array.isArray(obj.entries)||!obj.entries.every(x=>x&&typeof x.name==='string'))throw Error();if(!confirm('De huidige notities vervangen door de back-up?'))return;let next=obj.entries.map(normalizeEntry);let previous=data;data=next;if(!persist()){data=previous;return}dirtyIds=new Set(data.map(x=>x.id));saveDirtyIds();markLocalPending();cloudReady=false;selected='';render();alert('Back-up geopend. De notities zijn lokaal opgeslagen.')}catch{alert('Dit bestand is geen geldige back-up.')}finally{e.target.value=''}};
 // Booklet imposition: each physical landscape A4 sheet has two A5 pages per side.
 // Page 1 front cover; final page back cover. For duplex short-edge flip:
@@ -104,9 +104,9 @@ $('downloadPrintBtn').onclick=()=>{
 };
 
 
-// Google Drive appDataFolder: access only the private app folder, never ordinary Drive files.
+// Versie 21: alleen drive.file; oude verborgen kopieën blijven onaangeraakt.
 const GOOGLE_CLIENT_ID='224250035093-aavcg8rbd9os26i8t2eu21bq62n94hut.apps.googleusercontent.com';
-const GOOGLE_SCOPE='https://www.googleapis.com/auth/drive.appdata https://www.googleapis.com/auth/drive.file';
+const GOOGLE_SCOPE='https://www.googleapis.com/auth/drive.file';
 const VISIBLE_FOLDER='0-ABC Zorgboekje',VISIBLE_FOLDER_KEY='abc-zorgboekje-visible-folder-v15';
 let visibleFolderId=localStorage.getItem(VISIBLE_FOLDER_KEY)||null,visibleFileId=null,visibleReady=false;
 const CLOUD_FILE='abc-zorgboekje.json';
@@ -118,7 +118,7 @@ const DIRTY_KEY='abc-zorgboekje-niet-gesynchroniseerd-v6';
 dirtyIds=new Set();
 try{const saved=JSON.parse(localStorage.getItem(DIRTY_KEY)||'null');if(Array.isArray(saved))dirtyIds=new Set(saved);else if(localPending)dirtyIds=new Set(data.map(x=>x.id));}catch{if(localPending)dirtyIds=new Set(data.map(x=>x.id))}
 // Vergelijk notities, inclusief woordkoppelingen, met Google Drive.
-function entryMatches(a,b){return a&&b&&a.id===b.id&&a.name===b.name&&a.features===b.features&&a.tips===b.tips&&entryType(a)===entryType(b)&&JSON.stringify([...(a.relatedIds||[])].sort())===JSON.stringify([...(b.relatedIds||[])].sort())}
+function entryMatches(a,b){return a&&b&&a.id===b.id&&a.name===b.name&&a.features===b.features&&a.tips===b.tips&&entryType(a)===entryType(b)&&JSON.stringify([...(a.relatedIds||[])].sort())===JSON.stringify([...(b.relatedIds||[])].sort())&&JSON.stringify([...(a.diseaseIds||[])].sort())===JSON.stringify([...(b.diseaseIds||[])].sort())}
 function reconcileWithDrive(remote){const byId=new Map(remote.map(x=>[x.id,x]));dirtyIds=new Set(data.filter(x=>!entryMatches(x,byId.get(x.id))).map(x=>x.id));saveDirtyIds();if(dirtyIds.size||remote.some(x=>!data.some(y=>y.id===x.id)))markLocalPending();else clearLocalPending()}
 function saveDirtyIds(){try{localStorage.setItem(DIRTY_KEY,JSON.stringify([...dirtyIds]))}catch{}render()}
 
@@ -141,10 +141,11 @@ function cloudControls(){let ok=!!googleToken;
 }
 function ensureGoogleClient(){
  if(!window.google?.accounts?.oauth2)throw new Error('Google-inloggen is nog niet geladen. Vernieuw de pagina en probeer opnieuw.');
- if(!googleTokenClient)googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:GOOGLE_CLIENT_ID,scope:GOOGLE_SCOPE,callback:async response=>{
+ if(!googleTokenClient)googleTokenClient=google.accounts.oauth2.initTokenClient({client_id:GOOGLE_CLIENT_ID,scope:GOOGLE_SCOPE,include_granted_scopes:false,callback:async response=>{
   if(response.error||!response.access_token){cloudStatus('Google heeft geen toegang verleend. Probeer opnieuw.');return}
-  googleToken=response.access_token;cloudReady=false;cloudControls();
-  await initializeCloud();
+  if(!google.accounts.oauth2.hasGrantedAllScopes(response,GOOGLE_SCOPE)){cloudStatus('Geef toestemming voor de bestanden van het zorgboekje.');return;}
+  googleToken=response.access_token;cloudReady=false;visibleReady=false;visibleFolderId=null;visibleFileId=null;cloudControls();
+  await initializeCloud(window.abcGuideConsentGranted===true);
   if(typeof window.abcGuideLoginFinished==='function')window.abcGuideLoginFinished();
  }});
 }
@@ -158,40 +159,46 @@ async function googleFetch(url,options={}){
  return response;
 }
 async function findCloudFile(){
- let url='https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&fields=nextPageToken,files(id,name,modifiedTime)&pageSize=100';let all=[];
- while(url){let j=await(await googleFetch(url)).json();all.push(...(j.files||[]).filter(f=>f.name===CLOUD_FILE));url=j.nextPageToken?'https://www.googleapis.com/drive/v3/files?spaces=appDataFolder&fields=nextPageToken,files(id,name,modifiedTime)&pageSize=100&pageToken='+encodeURIComponent(j.nextPageToken):null}
- return all.sort((a,b)=>(b.modifiedTime||'').localeCompare(a.modifiedTime||''))[0]||null;
+ if(!visibleFolderId)return null;
+ if(!await verifyFolder(visibleFolderId))throw new Error('De gekoppelde map is niet toegankelijk.');
+ return await visibleFileInFolder(visibleFolderId);
 }
 function normalizeEntries(j){
  if(!Array.isArray(j.entries)||!j.entries.every(x=>x&&typeof x.name==='string'&&typeof x.features==='string'&&typeof x.tips==='string'))throw new Error('Het cloudbestand is geen geldig ABC Zorgboekje.');
  return j.entries.map(normalizeEntry);
 }
 async function readCloud(file){return normalizeEntries(await(await googleFetch('https://www.googleapis.com/drive/v3/files/'+encodeURIComponent(file.id)+'?alt=media')).json())}
-function replaceLocal(entries){data=entries;dirtyIds.clear();saveDirtyIds();try{localStorage.setItem(KEY,JSON.stringify(data))}catch{throw new Error('Kon de notities niet op dit apparaat bewaren.')}selected='';render()}
-async function initializeCloud(){
+function replaceLocal(entries){try{localStorage.setItem(KEY,JSON.stringify(entries))}catch{throw new Error('Kon de notities niet op dit apparaat bewaren.')}data=entries;dirtyIds.clear();saveDirtyIds();selected='';render()}
+async function initializeCloud(create=false){
  if(googleBusy)return;
- googleBusy=true;cloudControls();cloudStatus('Google Drive controleren…');
+ googleBusy=true;cloudReady=false;visibleReady=false;cloudControls();
  try{
-  const file=await findCloudFile();cloudFileId=file?.id||null;
+  const candidates=await listVisible("name = '"+VISIBLE_FOLDER+"' and mimeType = 'application/vnd.google-apps.folder' and trashed = false and 'root' in parents");
+  if(candidates.length>1)throw new Error('Meerdere mappen gevonden. Niets gewijzigd.');
+  visibleFolderId=candidates[0]?.id||null;
+  if(!visibleFolderId){
+   if(!create){cloudStatus('Verbonden. Geef toestemming om jouw map te maken.');return;}
+   visibleFolderId=await createVisibleFolder();
+  }
+  const file=await findCloudFile();visibleFileId=file?.id||null;
   if(file){
-   // Alleen lezen en vergelijken. Nooit automatisch lokale gegevens vervangen of uploaden.
    const remote=await readCloud(file);
-   const remoteOnly=remote.filter(x=>!data.some(y=>y.id===x.id));
-   reconcileWithDrive(remote);
-   if(remoteOnly.length){
-    cloudReady=false;
-    cloudStatus('Verbonden. '+remoteOnly.length+' notitie(s) staan alleen in Drive. Upload is geblokkeerd om verlies te voorkomen. Maak een back-up en vergelijk de versies.');
-   }else{
-    cloudReady=true;
-    cloudStatus(dirtyIds.size?'Verbonden. '+dirtyIds.size+' notitie(s) verschillen van Google Drive (★). Er is niets gewijzigd of geüpload.':'✓ Google Drive verbonden. Alle lokale ziektebeelden komen overeen.');
+   if(!data.length&&remote.length&&!localPending){
+    // An empty device may safely retrieve the existing book; no cloud write.
+    replaceLocal(remote);clearLocalPending();
    }
+   reconcileWithDrive(remote);
+   cloudReady=!remote.some(x=>!data.some(y=>y.id===x.id));
+   cloudStatus(cloudReady?(dirtyIds.size?'Verbonden. Lokale notities verschillen (★). Niets overschreven.':'✓ Google Drive verbonden. Notities komen overeen.'):'Verbonden. Drive bevat extra notities. Upload geblokkeerd. Maak een back-up en vergelijk de versies.');
   }else{
    dirtyIds=new Set(data.map(x=>x.id));saveDirtyIds();
    if(data.length)markLocalPending();else clearLocalPending();
    cloudReady=true;
-   cloudStatus(data.length?'Verbonden. Nog geen cloudkopie gevonden. Lokale ziektebeelden hebben een rood sterretje.':'✓ Google Drive verbonden. Nog geen cloudkopie aanwezig.');
+   cloudStatus('✓ Google Drive verbonden. Nog geen cloudkopie aanwezig.');
   }
- }catch(e){cloudReady=false;cloudStatus('Drive-controle niet gelukt: '+e.message+' Lokale notities zijn niet gewijzigd.');}
+  visibleReady=true;localStorage.setItem(VISIBLE_FOLDER_KEY,visibleFolderId);
+  $('visibleDriveStatus').textContent='✓ Jouw map 0-ABC Zorgboekje is gekoppeld.';
+ }catch(e){cloudReady=false;cloudStatus('Drive-controle niet gelukt: '+e.message);$('visibleDriveStatus').textContent=e.message;}
  finally{googleBusy=false;cloudControls()}
 }
 function queueCloudSave(){
@@ -200,14 +207,8 @@ function queueCloudSave(){
  void flushCloudSaves();
 }
 async function uploadSnapshot(snapshot){
- let content=JSON.stringify({app:'ABC Zorgboekje',version:3,exportedAt:new Date().toISOString(),entries:snapshot});
- if(cloudFileId){await googleFetch('https://www.googleapis.com/upload/drive/v3/files/'+encodeURIComponent(cloudFileId)+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json'},body:content})}
- else{
-  let boundary='abc_zorgboekje_'+Date.now();let meta=JSON.stringify({name:CLOUD_FILE,parents:['appDataFolder'],mimeType:'application/json'});
-  let body=new Blob(['--'+boundary+'\r\nContent-Type: application/json; charset=UTF-8\r\n\r\n'+meta+'\r\n--'+boundary+'\r\nContent-Type: application/json\r\n\r\n',content,'\r\n--'+boundary+'--'],{type:'multipart/related; boundary='+boundary});
-  let result=await(await googleFetch('https://www.googleapis.com/upload/drive/v3/files?uploadType=multipart&fields=id',{method:'POST',headers:{'Content-Type':'multipart/related; boundary='+boundary},body})).json();
-  cloudFileId=result.id;
- }
+ if(!visibleReady)throw new Error('Koppel eerst jouw map.');
+ await syncVisibleSafely(snapshot);
 }
 async function flushCloudSaves(){
  if(cloudSaving||!cloudReady||!googleToken)return;
@@ -248,7 +249,7 @@ $('googleDownload').onclick=async()=>{
   cloudStatus('✓ '+data.length+' ziektebeelden opgehaald. Kies bij volgende wijzigingen opnieuw waar je wilt opslaan.');
  }catch(e){cloudStatus('Ophalen mislukt: '+e.message)}finally{googleBusy=false;cloudControls()}
 };
-// Visible Drive folder is opt-in. The original appDataFolder remains an independent safety copy.
+// Zichtbare Drive-map is de hoofdopslag.
 async function listVisible(query){
  let next='',out=[];
  do{
@@ -269,10 +270,11 @@ async function verifyFolder(id){
 }
 async function visibleFileInFolder(folder){
  const found=await listVisible("'"+folder.replace(/'/g,"\\'")+"' in parents and trashed = false and name = '"+CLOUD_FILE+"'");
- return found.find(f=>f.mimeType==='application/json')||found[0]||null;
+ if(found.length>1)throw new Error('Meerdere zorgboekjes gevonden. Niets overschreven.');
+ return found[0]||null;
 }
 async function uploadVisible(snapshot){
- const content=JSON.stringify({app:'ABC Zorgboekje',version:15,exportedAt:new Date().toISOString(),entries:snapshot});
+ const content=JSON.stringify({app:'ABC Zorgboekje',version:21,exportedAt:new Date().toISOString(),entries:snapshot});
  if(visibleFileId){
   await googleFetch('https://www.googleapis.com/upload/drive/v3/files/'+encodeURIComponent(visibleFileId)+'?uploadType=media',{method:'PATCH',headers:{'Content-Type':'application/json'},body:content});
  }else{
@@ -283,11 +285,12 @@ async function uploadVisible(snapshot){
  }
 }
 async function syncVisibleSafely(snapshot){
- if(!visibleReady)return;
+ if(!visibleReady)throw new Error('De map is niet gekoppeld.');
  if(!await verifyFolder(visibleFolderId)){
   visibleReady=false;throw new Error('De zichtbare map is verwijderd of niet meer toegankelijk. Er wordt geen nieuwe map gemaakt.');
  }
  const file=await visibleFileInFolder(visibleFolderId);
+ if(!file&&visibleFileId)throw new Error('Het cloudbestand ontbreekt. Niets overschreven.');
  if(file){
   visibleFileId=file.id;
   const remote=await readCloud(file);
@@ -299,69 +302,12 @@ async function syncVisibleSafely(snapshot){
 }
 $('setupVisibleDrive').onclick=async()=>{
  if(!googleToken||googleBusy||cloudSaving)return;
- googleBusy=true;cloudControls();
- const status=$('visibleDriveStatus');status.textContent='Zichtbare Drive-map veilig controleren…';
- try{
-  let folder=visibleFolderId&&await verifyFolder(visibleFolderId)?visibleFolderId:null;
-  if(!folder){
-   const candidates=await listVisible("name = '"+VISIBLE_FOLDER+"' and mimeType = 'application/vnd.google-apps.folder' and trashed = false");
-   if(candidates.length>1)throw new Error('Er bestaan meerdere mappen met deze naam. Er is niets veranderd; kies eerst welke map gebruikt moet worden.');
-   folder=candidates[0]?.id||null;
-  }
-  if(!folder){
-   if(!confirm('Er wordt één nieuwe map 0-ABC Zorgboekje in Mijn Drive gemaakt. Je verborgen Drive-kopie blijft bestaan. Doorgaan?')){status.textContent='Geen wijzigingen gemaakt.';return}
-   folder=await createVisibleFolder();
-  }
-  const existing=await visibleFileInFolder(folder);
-  if(existing){
-   const remote=await readCloud(existing);
-   if(remote.some(x=>!data.some(y=>y.id===x.id))){
-    throw new Error('De map bevat een zorgboekje met notities die hier ontbreken. Niets overschreven; maak eerst een vergelijking.');
-   }
-   if(!confirm('De zichtbare map bevat al een zorgboekje. Wil je dat bestaande bestand bijwerken met jouw '+data.length+' lokale notities?')){status.textContent='Map gevonden; bestaande bestand niet gewijzigd.';return}
-  }else if(!confirm('De map is klaar. Wil je nu een kopie van jouw '+data.length+' lokale notities in deze zichtbare map opslaan? De verborgen kopie blijft bestaan.')){
-   status.textContent='Map gevonden of gemaakt; er zijn geen notities overgeschreven.';return;
-  }
-  visibleFolderId=folder;visibleFileId=existing?.id||null;
-  await uploadVisible(JSON.parse(JSON.stringify(data)));
-  localStorage.setItem(VISIBLE_FOLDER_KEY,folder);visibleReady=true;
-  status.textContent='✓ Jouw map 0-ABC Zorgboekje is gekoppeld. Je zorgboekje is daar bewaard.';
-  cloudControls();
- }catch(e){visibleReady=false;status.textContent='⚠ '+e.message+' Je lokale notities en de verborgen kopie zijn niet gewijzigd.'}
- finally{googleBusy=false;cloudControls();if(typeof window.abcGuideDriveFinished==='function')window.abcGuideDriveFinished()}
-};
-// Revalidate the stored folder after each connection; never recreate it automatically.
-const originalInitializeCloud=initializeCloud;
-initializeCloud=async function(){
- visibleReady=false;visibleFileId=null;
- await originalInitializeCloud();
- if(!googleToken)return;
- if(visibleFolderId){
-  try{
-   if(await verifyFolder(visibleFolderId)){
-    const f=await visibleFileInFolder(visibleFolderId);
-    if(f){
-     visibleFileId=f.id;const remote=await readCloud(f);
-     if(remote.some(x=>!data.some(y=>y.id===x.id)))throw new Error('De zichtbare kopie bevat extra notities. Synchronisatie naar de zichtbare map is geblokkeerd.');
-    }
-    visibleReady=true;
-    $('visibleDriveStatus').textContent='✓ Jouw map 0-ABC Zorgboekje is gekoppeld.';
-   }else $('visibleDriveStatus').textContent='⚠ De eerder gekoppelde map is niet toegankelijk. Er wordt niets automatisch opnieuw aangemaakt.';
-  }catch(e){$('visibleDriveStatus').textContent='⚠ '+e.message}
- }
-};
-// Existing appData upload remains the primary path. Visible copy is an additional guarded write.
-const originalUploadSnapshot=uploadSnapshot;
-uploadSnapshot=async function(snapshot){
- await originalUploadSnapshot(snapshot);
- if(visibleReady){
-  try{await syncVisibleSafely(snapshot);$('visibleDriveStatus').textContent='✓ Jouw zorgboekje is ook bewaard in de map 0-ABC Zorgboekje.'}
-  catch(e){visibleReady=false;$('visibleDriveStatus').textContent='⚠ Zichtbare map NIET bijgewerkt: '+e.message;throw e}
- }
+ await initializeCloud(true);
+ if(typeof window.abcGuideDriveFinished==='function')window.abcGuideDriveFinished();
 };
 cloudControls();
 
-// Eenvoudige start voor nieuwe gebruikers. Toestemming leidt nooit zelf tot een Drive-wijziging.
+// Startgids: na toestemming en Google-login de map koppelen.
 (function(){
  const el=id=>document.getElementById(id);
  let step=1;
@@ -370,21 +316,21 @@ cloudControls();
   for(let i=1;i<=3;i++)el(['','guideOne','guideTwo','guideThree'][i]).hidden=i!==n;
   el('guideLater').hidden=n!==1;el('guideLocalHint').hidden=n!==1;el('guideMessage').hidden=true;
  }
- function close(){el('startGuide').hidden=true;}
- function open(){if(typeof googleToken!=='undefined'&&googleToken)return;showStep(1);el('startGuide').hidden=false;}
+ function close(){el('startGuide').hidden=true;window.abcGuideConsentGranted=false;}
+ function open(){if(googleToken&&visibleReady)return;showStep(1);el('startGuide').hidden=false;}
  el('guideNext').onclick=()=>showStep(2);
- el('guideConsent').onclick=()=>showStep(3);
+ el('guideConsent').onclick=()=>{window.abcGuideConsentGranted=true;showStep(3);};
  el('guideBackTwo').onclick=()=>showStep(1);
  el('guideBackThree').onclick=()=>showStep(2);
  const CHOICE='abc-zorgboekje-storage-choice-v18';
  const message=t=>{el('guideMessage').textContent=t;el('guideMessage').hidden=false;};
  el('guideLater').onclick=()=>{localStorage.setItem(CHOICE,'local');close();};
- el('guideLogin').onclick=()=>{message('Google-inloggen wordt geopend…');el('googleConnect').click();};
+ el('guideLogin').onclick=async()=>{message('Google Drive wordt geopend…');if(googleToken){await initializeCloud(true);window.abcGuideLoginFinished();}else el('googleConnect').click();};
  window.abcGuideLoginFinished=()=>{
   if(el('startGuide').hidden||step!==3)return;
   if(!googleToken){message('Inloggen is niet gelukt. Probeer opnieuw.');return;}
   if(visibleReady){localStorage.setItem(CHOICE,'drive');close();return;}
-  if(!cloudReady){message('Google Drive is nog niet klaar. Kijk bij Instellingen voor meer informatie.');return;}
+  if(!cloudReady){message(el('googleStatus').textContent);return;}
   message('Je map in Google Drive wordt gecontroleerd…');
   el('setupVisibleDrive').click();
  };
